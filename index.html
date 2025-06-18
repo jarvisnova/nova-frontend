@@ -22,14 +22,11 @@
       font-size: 18px;
       color: red;
     }
-    #video-container {
-      margin-top: 30px;
-    }
   </style>
 </head>
 <body>
   <h2>🚀 Scene: A lonely astronaut stares at Earth from orbit...</h2>
-  <div id="render-status">JARVIS is rendering the cinematic experience...</div>
+  <div id="render-status">⏳ JARVIS is rendering the cinematic experience...</div>
   <div id="video-container"></div>
 
   <script>
@@ -41,9 +38,9 @@
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        document.getElementById("render-status").innerText = "🎬 Rendering complete!";
+        document.getElementById("render-status").innerText = "✅ Rendering complete!";
         document.getElementById("video-container").innerHTML = `
-          <video src="${data.videoUrl}" autoplay controls width="600"></video>
+          <video src="${data.videoUrl}" autoplay controls width="80%"></video>
         `;
       } else {
         document.getElementById("render-status").innerText = "❌ Failed to render.";
@@ -51,7 +48,7 @@
     })
     .catch(err => {
       console.error(err);
-      document.getElementById("render-status").innerText = "⚠️ Render error.";
+      document.getElementById("render-status").innerText = "❌ Render error.";
     });
   </script>
 </body>
