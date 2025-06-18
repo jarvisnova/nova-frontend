@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NOVA JARVIS - Astronaut Scene</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #render-status {
+      margin: 20px;
+      font-size: 18px;
+    }
+    #video-container {
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <h2>🌌 Scene: A lonely astronaut stares at Earth from orbit...</h2>
+  <div id="render-status">🧠 JARVIS is rendering the cinematic experience...</div>
+  <div id="video-container"></div>
+
+  <script>
+    function showLoadingMessage(text) {
+      document.getElementById("render-status").innerText = text;
+    }
+
+    function displayVideo(url) {
+      const container = document.getElementById("video-container");
+      container.innerHTML = \`<video controls autoplay width='100%'>
+        <source src='\${url}' type='video/mp4'>Your browser does not support video.
+      </video>\`;
+    }
+
+    function showError(message) {
+      const container = document.getElementById("render-status");
+      container.innerText = message;
+      container.style.color = 'red';
+    }
+
+    async function renderScene() {
+      showLoadingMessage("🧠 JARVIS is rendering the cinematic experience...");
+
+      try {
+        const response = await fetch("https://nova-server.krishna-mode.in/api/render", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            scene: "A lonely astronaut stares at Earth from orbit...",
+            emotion: "melancholy",
+            voice: "whispered",
+            music: "ambient_echoes",
+            lang: "en"
+          }),
+        });
+
+        const result = await response.json();
+
+        if (result.success && result.videoUrl) {
+          displayVideo(result.videoUrl);
+        } else {
+          showError("JARVIS failed to render. Please try again later.");
+        }
+      } catch (error) {
+        console.error("Rendering failed:", error);
+        showError("JARVIS encountered a glitch during rendering.");
+      }
+    }
+
+    renderScene();
+  </script>
+</body>
+</html>
