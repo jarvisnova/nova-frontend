@@ -2,52 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NOVA JARVIS - Scene Render</title>
   <style>
     body {
       background-color: black;
       color: white;
       font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
       margin: 0;
-      text-align: center;
     }
     #render-status {
       margin-top: 20px;
       font-size: 18px;
       color: red;
     }
+    video {
+      margin-top: 30px;
+      width: 80%;
+      max-width: 800px;
+      border: 2px solid white;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
   <h2>🚀 Scene: A lonely astronaut stares at Earth from orbit...</h2>
-  <div id="render-status">⏳ JARVIS is rendering the cinematic experience...</div>
+  <div id="render-status">🔄 JARVIS is rendering the cinematic experience...</div>
   <div id="video-container"></div>
 
   <script>
     fetch("https://nova-backend.vercel.app/api/render", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ scene: "A lonely astronaut stares at Earth from orbit..." })
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        scene: "A lonely astronaut stares at Earth from orbit..."
+      })
     })
     .then(res => res.json())
     .then(data => {
-      if (data.success) {
+      if (data.success && data.videoUrl) {
         document.getElementById("render-status").innerText = "✅ Rendering complete!";
-        document.getElementById("video-container").innerHTML = `
-          <video src="${data.videoUrl}" autoplay controls width="80%"></video>
-        `;
+        document.getElementById("video-container").innerHTML =
+          `<video src="${data.videoUrl}" controls autoplay></video>`;
       } else {
         document.getElementById("render-status").innerText = "❌ Failed to render.";
       }
     })
     .catch(err => {
-      console.error(err);
+      console.error("Render error:", err);
       document.getElementById("render-status").innerText = "❌ Render error.";
     });
   </script>
