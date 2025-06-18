@@ -52,7 +52,8 @@
       showLoadingMessage("🧠 JARVIS is rendering the cinematic experience...");
 
       try {
-        const response = await fetch("https://nova-server.krishna-mode.in/api/render", {
+        const response = await fetch("https://nova-backend.vercel.app/api/render", {
+
           method: "POST",
           headers: {
             "Content-Type": "application/json",
