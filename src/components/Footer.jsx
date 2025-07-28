@@ -1,12 +1,20 @@
-// src/components/Footer.jsx
 import React from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
-const Footer = () => {
+function App() {
   return (
-    <footer className="bg-black text-white text-center p-3 text-sm mt-auto">
-      © {new Date().getFullYear()} JarvisAI.com · All rights reserved.
-    </footer>
-  );
-};
+    <div className="flex flex-col min-h-screen bg-gray-100 text-black">
+      <Header />
 
-export default Footer;
+      <main className="flex-1 container mx-auto px-4 py-6">
+        <h1 className="text-3xl font-bold mb-4">🚀 Super NOVA is LIVE!</h1>
+        <p>All features will appear here one by one. Stay tuned!</p>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
