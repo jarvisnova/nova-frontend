@@ -9,7 +9,7 @@ import FeatureGrid from './components/FeatureGrid';
 import TrendingMode from './components/pages/mode/TrendingMode';
 import ExplainMode from './components/pages/mode/ExplainMode';
 import KnowledgeMode from './components/pages/mode/KnowledgeMode';
-// Add more imports as you inject more modes
+import AutoCoachMode from './components/pages/mode/AutoCoachMode'; // ✅ NEW
 
 const App = () => {
   return (
@@ -36,7 +36,7 @@ const App = () => {
             <Route path="/mode/trending" element={<TrendingMode />} />
             <Route path="/mode/explain" element={<ExplainMode />} />
             <Route path="/mode/knowledge" element={<KnowledgeMode />} />
-            {/* Add more mode routes here */}
+            <Route path="/mode/auto-coach" element={<AutoCoachMode />} /> {/* ✅ NEW */}
           </Routes>
         </main>
 
